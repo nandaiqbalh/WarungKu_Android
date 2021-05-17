@@ -22,7 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // botton nav bar
+        Fragment homeFragment = new HomeFragment();
         BottomNavigationView bottomNav = findViewById(R.id.nav_view);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
         bottomNav.setOnNavigationItemSelectedListener(navListener);
     }
 
