@@ -55,10 +55,11 @@
             />
     </RelativeLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_slider"
+    <com.smarteist.autoimageslider.SliderLayout
+        android:id="@+id/slider"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="190dp"
         />
+
 
 </LinearLayout>
