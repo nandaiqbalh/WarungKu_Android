@@ -180,7 +180,6 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-
     private void setSliderViews() {
 
         for (int i = 0; i < 3; i++) {

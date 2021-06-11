@@ -44,7 +44,7 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.myViewHold
         return dataHolder.size();
     }
 
-    class myViewHolder extends RecyclerView.ViewHolder{
+    class myViewHolder extends RecyclerView.ViewHolder {
 
         ImageView gambarProduk;
         TextView nama, harga;
