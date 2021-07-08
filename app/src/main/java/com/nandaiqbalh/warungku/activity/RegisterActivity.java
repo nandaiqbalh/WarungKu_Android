@@ -107,19 +107,15 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
 
-                if (response.isSuccessful()) {
+                RegisterResponse respon = response.body();
 
-                    String message = "Register successfully!";
-                    Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    finish();
-                    startActivity(intent);
-
+                if (respon.getSuccess() == 1){
+                    // berhasil
+                    Toast.makeText(RegisterActivity.this, "Success : " + respon.getMessage(), Toast.LENGTH_LONG).show();
 
                 } else {
-                    String message = "An error occured during register. Please try again later!";
-                    Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
+                    // gagal
+                    Toast.makeText(RegisterActivity.this, "Error : " + respon.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
 
