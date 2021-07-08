@@ -3,6 +3,7 @@ package com.nandaiqbalh.warungku.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.nandaiqbalh.warungku.rest.RegisterRequest;
 import com.nandaiqbalh.warungku.rest.RegisterResponse;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -57,12 +59,30 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void register(RegisterRequest registerRequest) {
 
+        String emailInput = edtEmail.getText().toString().trim(); // untuk validasi email
+        String passwordInput = edtPassword.getText().toString().trim(); // untuk validasi password
+        final Pattern PASSWORD_PATTERN =
+                Pattern.compile("^" +
+                        "(?=.*[0-9])" +         //at least 1 digit
+                        //"(?=.*[a-z])" +         //at least 1 lower case letter
+                        //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                        "(?=.*[a-zA-Z])" +      //any letter
+                        // "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                        // "(?=\\S+$)" +           //no white spaces
+                        ".{8,}" +               //at least 8 characters
+                        "$");
+
+
         if (edtName.getText().toString().isEmpty()) {
             edtName.setError("Nama tidak boleh kosong!");
             edtName.requestFocus();
             return;
-        } else if (edtEmail.getText().toString().isEmpty()) {
+        } else if (emailInput.isEmpty()) {
             edtEmail.setError("Email tidak boleh kosong!");
+            edtEmail.requestFocus();
+            return;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
+            edtEmail.setError("Email yang anda masukkan tidak valid!");
             edtEmail.requestFocus();
             return;
         } else if (edtPhone.getText().toString().isEmpty()) {
@@ -71,6 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         } else if (edtPassword.getText().toString().isEmpty()) {
             edtPassword.setError("Password tidak boleh kosong!");
+            edtPassword.requestFocus();
+            return;
+        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()){
+            edtPassword.setError("Password anda terlalu lemah! (Minimal 8 digit, angka + huruf).");
             edtPassword.requestFocus();
             return;
         }
