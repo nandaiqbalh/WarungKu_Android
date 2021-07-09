@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -60,15 +61,19 @@ public class AkunFragment extends Fragment {
 
     SharedPref s;
     Button buttonLogout;
+    TextView tvName, tvPhone, tvEmail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_akun, container, false);
-        buttonLogout = (Button) view.findViewById(R.id.btn_logout);
 
+        // fungsi inisialisasi
+        init(view);
         s = new SharedPref(getActivity());
+
+        setData();
 
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,5 +82,19 @@ public class AkunFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void setData(){
+        tvName.setText(s.getString(s.name));
+        tvPhone.setText(s.getString(s.phone));
+        tvEmail.setText(s.getString(s.email));
+    }
+
+    private void init(View view){
+        buttonLogout = (Button) view.findViewById(R.id.btn_logout);
+        tvName = (TextView) view.findViewById(R.id.tv_name);
+        tvPhone = (TextView) view.findViewById(R.id.tv_phone);
+        tvEmail = (TextView) view.findViewById(R.id.tv_email);
+
     }
 }

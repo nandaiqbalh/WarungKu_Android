@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                 RegisterRequest registerRequest = new RegisterRequest();
                 registerRequest.setName(edtName.getText().toString());
                 registerRequest.setEmail(edtEmail.getText().toString());
-                registerRequest.setPhoneNumber(edtPhone.getText().toString());
+                registerRequest.setPhone(edtPhone.getText().toString());
                 registerRequest.setPassword(edtPassword.getText().toString());
                 register(registerRequest);
 
@@ -119,6 +119,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                 RegisterResponse respon = response.body();
 
+                s.setString(s.name, respon.getUser().getName());
+                s.setString(s.phone, respon.getUser().getPhone());
+                s.setString(s.email, respon.getUser().getEmail());
+
                 if (respon.getSuccess() == 1){
                     // berhasil
                     Toast.makeText(RegisterActivity.this, "Success : " + respon.getMessage(), Toast.LENGTH_LONG).show();
@@ -143,5 +147,6 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
+
     }
 }
