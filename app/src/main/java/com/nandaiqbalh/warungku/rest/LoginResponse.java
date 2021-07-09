@@ -1,32 +1,34 @@
 package com.nandaiqbalh.warungku.rest;
 
+import com.nandaiqbalh.warungku.model.User;
+
 public class LoginResponse {
 
-    private String user_id;
-    private String name;
-    private String email;
+    private int success = 0;
+    private String message;
+    private User user = new User();
 
-    public String getUser_id() {
-        return user_id;
+    public int getSuccess() {
+        return success;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setSuccess(int success) {
+        this.success = success;
     }
 
-    public String getName() {
-        return name;
+    public String getMessage() {
+        return message;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getEmail() {
-        return email;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -9,8 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.nandaiqbalh.warungku.activity.LoginActivity;
-import com.nandaiqbalh.warungku.activity.MasukActivity;
+import com.nandaiqbalh.warungku.activity.AkunActivity;
 import com.nandaiqbalh.warungku.fragment.AkunFragment;
 import com.nandaiqbalh.warungku.fragment.HomeFragment;
 import com.nandaiqbalh.warungku.fragment.KeranjangFragment;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = new AkunFragment();
                                 getSupportFragmentManager().beginTransaction().replace(R.id.container, selectedFragment).commit();
                             } else {
-                                Intent intent = new Intent(MainActivity.this, MasukActivity.class);
+                                Intent intent = new Intent(MainActivity.this, AkunActivity.class);
                                 finish();
                                 startActivity(intent);
                             }

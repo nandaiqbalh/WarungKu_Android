@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.nandaiqbalh.warungku.MainActivity;
 import com.nandaiqbalh.warungku.R;
+import com.nandaiqbalh.warungku.helper.SharedPref;
 import com.nandaiqbalh.warungku.rest.ApiClient;
 import com.nandaiqbalh.warungku.rest.RegisterRequest;
 import com.nandaiqbalh.warungku.rest.RegisterResponse;
@@ -25,11 +28,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Button btnRegister;
     private TextInputEditText edtName, edtEmail, edtPhone, edtPassword;
+    SharedPref s;
+    ProgressBar progressBarRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        // shared preferences
+        s = new SharedPref(this);
 
         edtName = (TextInputEditText) findViewById(R.id.edt_nama);
         edtEmail = (TextInputEditText) findViewById(R.id.edt_email);
@@ -55,7 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(RegisterRequest registerRequest) {
-
 
         String emailInput = edtEmail.getText().toString().trim(); // untuk validasi email
         int phoneInput = edtPhone.getText().length(); // untuk validasi nomor telepon
@@ -101,17 +108,26 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        progressBarRegister = (ProgressBar) findViewById(R.id.pb_register);
+        progressBarRegister.setVisibility(View.VISIBLE);
 
         Call<RegisterResponse> registerResponseCall = ApiClient.getService().registerUser(registerRequest);
         registerResponseCall.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                progressBarRegister.setVisibility(View.GONE);
 
                 RegisterResponse respon = response.body();
 
                 if (respon.getSuccess() == 1){
                     // berhasil
                     Toast.makeText(RegisterActivity.this, "Success : " + respon.getMessage(), Toast.LENGTH_LONG).show();
+                    s.setStatusLogin(true);
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
 
                 } else {
                     // gagal
@@ -121,11 +137,11 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                progressBarRegister.setVisibility(View.GONE);
 
                 String message = t.getLocalizedMessage();
                 Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
     }
-
 }

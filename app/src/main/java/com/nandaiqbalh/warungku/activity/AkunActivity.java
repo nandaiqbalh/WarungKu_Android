@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.nandaiqbalh.warungku.R;
 import com.nandaiqbalh.warungku.helper.SharedPref;
 
-public class MasukActivity extends AppCompatActivity {
+public class AkunActivity extends AppCompatActivity {
 
     // deklarasi member variabel
     private Button btnLogin;
@@ -20,7 +20,7 @@ public class MasukActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_masuk);
+        setContentView(R.layout.activity_akun);
 
         // shared preferences
         s = new SharedPref(this);
@@ -38,13 +38,16 @@ public class MasukActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 s.setStatusLogin(true);
+                Intent intent = new Intent(AkunActivity.this, LoginActivity.class);
+                finish();
+                startActivity(intent);
             }
         });
 
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MasukActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(AkunActivity.this, RegisterActivity.class);
                 finish();
                 startActivity(intent);
             }
