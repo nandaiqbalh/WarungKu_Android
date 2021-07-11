@@ -104,9 +104,11 @@ public class LoginActivity extends AppCompatActivity {
                     // berhasil
                     Toast.makeText(LoginActivity.this, "Success : " + respon.getMessage(), Toast.LENGTH_LONG).show();
                     s.setStatusLogin(true);
-                    s.setString(s.name, respon.getUser().getName());
+                    s.setUser(respon.getUser()); // manggil kembalian field user secara langsung
+
+                   /* s.setString(s.name, respon.getUser().getName());
                     s.setString(s.phone, respon.getUser().getPhone());
-                    s.setString(s.email, respon.getUser().getEmail());
+                    s.setString(s.email, respon.getUser().getEmail());*/
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
