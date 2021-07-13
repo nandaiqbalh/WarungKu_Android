@@ -41,8 +41,7 @@ public class SharedPref {
 
     // Getter bertipe User untuk memanggil langsung semua field di dalam user, agar ga manggil satu per satu
     public User getUser(){
-        String data;
-        data = sp.getString(String.valueOf(this.user), null); // ubah data dalam bentuk String ke dalam bentuk Object Class
+        String data = sp.getString(String.valueOf(this.user), null); // ubah data dalam bentuk String ke dalam bentuk Object Class
 
         if (data != null){
             return gson.fromJson(data, User.class);

@@ -2,7 +2,6 @@ package com.nandaiqbalh.warungku.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.nandaiqbalh.warungku.MainActivity;
+import com.google.gson.Gson;
 import com.nandaiqbalh.warungku.R;
 import com.nandaiqbalh.warungku.activity.DetailProductActivity;
-import com.nandaiqbalh.warungku.activity.LoginActivity;
 import com.nandaiqbalh.warungku.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +25,10 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.myViewHold
 
     ArrayList<Product> dataHolder;
     Activity activity;
+
+    // putString
+    Gson gson = new Gson();
+    Product product;
 
     // constructor
     public ProdukAdapter(Activity activity, ArrayList<Product> dataHolder) {
@@ -51,14 +52,17 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.myViewHold
         String imageURL = "http://192.168.160.108/warungKu/public/storage/product/" + dataHolder.get(position).getGambar();
         Picasso.get()
                 .load(imageURL)
-                .placeholder(R.drawable.icon)
-                .error(R.drawable.icon)
+                .placeholder(R.drawable.iv_loading)
+                .error(R.drawable.iv_loading)
                 .into(holder.gambarProduk);
 
         holder.layoutProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, DetailProductActivity.class);
+
+                String stringData = gson.toJson(dataHolder.get(position), Product.class); // cast data Produk ke dalam string
+                intent.putExtra("extra", stringData);
                 activity.startActivity(intent);
             }
         });
