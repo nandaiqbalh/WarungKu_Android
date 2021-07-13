@@ -1,5 +1,8 @@
 package com.nandaiqbalh.warungku.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,9 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nandaiqbalh.warungku.MainActivity;
 import com.nandaiqbalh.warungku.R;
+import com.nandaiqbalh.warungku.activity.DetailProductActivity;
+import com.nandaiqbalh.warungku.activity.LoginActivity;
 import com.nandaiqbalh.warungku.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -20,10 +27,12 @@ import java.util.Locale;
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.myViewHolder> {
 
     ArrayList<Product> dataHolder;
+    Activity activity;
 
     // constructor
-    public ProdukAdapter(ArrayList<Product> dataHolder) {
+    public ProdukAdapter(Activity activity, ArrayList<Product> dataHolder) {
         this.dataHolder = dataHolder;
+        this.activity = activity;
     }
 
     @NonNull
@@ -42,9 +51,17 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.myViewHold
         String imageURL = "http://192.168.160.108/warungKu/public/storage/product/" + dataHolder.get(position).getGambar();
         Picasso.get()
                 .load(imageURL)
-                .placeholder(R.drawable.ic_favorite)
-                .error(R.drawable.ic_history)
+                .placeholder(R.drawable.icon)
+                .error(R.drawable.icon)
                 .into(holder.gambarProduk);
+
+        holder.layoutProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, DetailProductActivity.class);
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -56,12 +73,14 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.myViewHold
 
         ImageView gambarProduk;
         TextView nama, harga;
+        View layoutProduct;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             gambarProduk = itemView.findViewById(R.id.img_produk);
             nama = itemView.findViewById(R.id.tv_nama);
             harga = itemView.findViewById(R.id.tv_harga);
+            layoutProduct = itemView.findViewById(R.id.layout_product);
         }
     }
 }

@@ -184,22 +184,22 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManagerTerbaru = new LinearLayoutManager(getActivity());
         layoutManagerTerbaru.setOrientation(RecyclerView.HORIZONTAL);
         recyclerViewTerbaru.setLayoutManager(layoutManagerTerbaru);
-        recyclerViewTerbaru.setAdapter(new ProdukAdapter(productArrayList));
+        recyclerViewTerbaru.setAdapter(new ProdukAdapter(requireActivity(), productArrayList));
 
         LinearLayoutManager layoutManagerTerlaris = new LinearLayoutManager(getActivity());
         layoutManagerTerlaris.setOrientation(RecyclerView.HORIZONTAL);
         recyclerViewTerlaris.setLayoutManager(layoutManagerTerlaris);
-        recyclerViewTerlaris.setAdapter(new ProdukAdapter(productArrayList));
+        recyclerViewTerlaris.setAdapter(new ProdukAdapter(requireActivity(), productArrayList));
 
         LinearLayoutManager layoutManagerOlahraga = new LinearLayoutManager(getActivity());
         layoutManagerOlahraga.setOrientation(RecyclerView.HORIZONTAL);
         recyclerViewOlahraga.setLayoutManager(layoutManagerOlahraga);
-        recyclerViewOlahraga.setAdapter(new ProdukAdapter(productArrayList));
+        recyclerViewOlahraga.setAdapter(new ProdukAdapter(requireActivity(), productArrayList));
 
         LinearLayoutManager layoutManagerElektronik = new LinearLayoutManager(getActivity());
         layoutManagerElektronik.setOrientation(RecyclerView.HORIZONTAL);
         recyclerViewElektronik.setLayoutManager(layoutManagerElektronik);
-        recyclerViewElektronik.setAdapter(new ProdukAdapter(productArrayList));
+        recyclerViewElektronik.setAdapter(new ProdukAdapter(requireActivity(), productArrayList));
 
     }
 
