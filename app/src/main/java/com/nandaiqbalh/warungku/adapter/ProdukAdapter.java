@@ -10,16 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nandaiqbalh.warungku.R;
-import com.nandaiqbalh.warungku.model.Produk;
+import com.nandaiqbalh.warungku.model.Product;
+import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.myViewHolder> {
 
-    ArrayList<Produk> dataHolder;
+    ArrayList<Product> dataHolder;
 
     // constructor
-    public ProdukAdapter(ArrayList<Produk> dataHolder) {
+    public ProdukAdapter(ArrayList<Product> dataHolder) {
         this.dataHolder = dataHolder;
     }
 
@@ -33,10 +36,15 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.myViewHold
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        holder.gambarProduk.setImageResource(dataHolder.get(position).getGambar());
         holder.nama.setText(dataHolder.get(position).getNama());
-        holder.harga.setText(dataHolder.get(position).getHarga());
-
+        holder.harga.setText(NumberFormat.getCurrencyInstance(new Locale("in", "ID")).format(Integer.valueOf(dataHolder.get(position).getHarga())));
+        // Gambar
+        String imageURL = "http://192.168.160.108/warungKu/public/storage/product/" + dataHolder.get(position).getGambar();
+        Picasso.get()
+                .load(imageURL)
+                .placeholder(R.drawable.ic_favorite)
+                .error(R.drawable.ic_history)
+                .into(holder.gambarProduk);
     }
 
     @Override
